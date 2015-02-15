@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Countimer by inflop</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Countimer</h1>
+        <p>This is simple timer and counter Arduino library.</p>
+
+        <p class="view"><a href="https://github.com/inflop/Countimer">View the Project on GitHub <small>inflop/Countimer</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/inflop/Countimer/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/inflop/Countimer/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/inflop/Countimer">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="countimer" class="anchor" href="#countimer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Countimer</h1>
+
+<p>This is simple timer and counter Arduino library.<br>
+Offers three work modes:</p>
+
+<ul>
+<li>Count-up timer with call specified method when count is complete.</li>
+<li>Count-down timer with call specified method when count is complete.</li>
+<li>Calling any method at a specified time interval.</li>
+</ul>
+
+<p>It allows you to start/pause, stop or restart timer.<br>
+The following are public methods for actions:</p>
+
+<ul>
+<li>void start()</li>
+<li>void stop()</li>
+<li>void pause()</li>
+<li>
+<p>void restart()</p>
+
+<p>Other methods:</p>
+</li>
+<li><p>byte getCurrentHours()</p></li>
+<li>byte getCurrentMinutes()</li>
+<li>byte getCurrentSeconds()</li>
+<li>void setInterval()</li>
+<li>String getCurrentTime()</li>
+<li>bool isCounterCompleted()</li>
+<li>bool isCounterRunning()</li>
+<li>bool isStopped()</li>
+</ul>
+
+<p>And here's some sample code!</p>
+
+<div class="highlight highlight-c"><pre>#<span class="pl-k">include</span> <span class="pl-s1"><span class="pl-pds">"</span>Countimer.h<span class="pl-pds">"</span></span>
+
+Countimer timer;
+
+<span class="pl-st">void</span> <span class="pl-en">setup</span>() {
+    Serial.<span class="pl-s3">begin</span>(<span class="pl-c1">9600</span>);
+
+    <span class="pl-c">// Set up count down timer with 10s and call method onComplete() when timer is complete.</span>
+    <span class="pl-c">// 00h:00m:10s</span>
+    timer.<span class="pl-s3">setCounter</span>(<span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">10</span>, timer.<span class="pl-vo">COUNT_DOWN</span>, onComplete);
+
+    <span class="pl-c">// Print current time every 1s on serial port by calling method refreshClock().</span>
+    timer.<span class="pl-s3">setInterval</span>(refreshClock, <span class="pl-c1">1000</span>);
+}
+
+<span class="pl-st">void</span> <span class="pl-en">refreshClock</span>() {
+    Serial.<span class="pl-s3">print</span>(<span class="pl-s1"><span class="pl-pds">"</span>Current count time is: <span class="pl-pds">"</span></span>);
+    Serial.<span class="pl-s3">println</span>(timer.<span class="pl-s3">getCurrentTime</span>());
+}
+
+<span class="pl-st">void</span> <span class="pl-en">onComplete</span>() {
+    Serial.<span class="pl-s3">println</span>(<span class="pl-s1"><span class="pl-pds">"</span>Complete!!!<span class="pl-pds">"</span></span>);
+}
+
+<span class="pl-st">void</span> <span class="pl-en">loop</span>() {
+    <span class="pl-c">// Run timer</span>
+    timer.<span class="pl-s3">run</span>();
+
+    <span class="pl-c">// Now timer is running and listening for actions.</span>
+    <span class="pl-c">// If you want to start the timer, you have to call start() method.</span>
+    timer.<span class="pl-s3">start</span>();
+}</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/inflop">inflop</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
