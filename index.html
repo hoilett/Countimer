@@ -94,7 +94,9 @@ Countimer timer;
 
     <span class="pl-c">// Now timer is running and listening for actions.</span>
     <span class="pl-c">// If you want to start the timer, you have to call start() method.</span>
-    timer.<span class="pl-s3">start</span>();
+    <span class="pl-k">if</span>(!timer.<span class="pl-s3">isCounterCompleted</span>()) {
+      timer.<span class="pl-s3">start</span>();
+    }
 }</pre></div>
       </section>
       <footer>
