@@ -23,6 +23,13 @@ void Countimer::setCounter(uint16_t hours, uint8_t minutes, uint8_t seconds, Cou
 	setCounter(hours, minutes, seconds);
 }
 
+void Countimer::setCounter(uint16_t hours, uint8_t minutes, uint8_t seconds, CountType countType)
+{
+	_countType = countType;
+	setCounter(hours, minutes, seconds);
+}
+
+
 void Countimer::setCounter(uint16_t hours, uint8_t minutes, uint8_t seconds)
 {
 	if (hours > COUNTIMER_MAX_HOURS) {
@@ -48,6 +55,11 @@ void Countimer::setCounter(uint16_t hours, uint8_t minutes, uint8_t seconds)
 
 	_startCountTime = _currentCountTime;
 
+}
+
+void Countimer::setInterval(uint32_t interval)
+{
+	_interval = interval;
 }
 
 void Countimer::setInterval(timer_callback callback, uint32_t interval)
@@ -80,6 +92,12 @@ char* Countimer::getCurrentTime()
 bool Countimer::isCounterCompleted()
 {
 	return _isCounterCompleted;
+}
+
+bool Countimer::isCounterRunning()
+{
+	// timer is running only if is not completed and not stopped.
+	return !_isCounterCompleted && !_isStopped;
 }
 
 bool Countimer::isStopped()

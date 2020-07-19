@@ -4,9 +4,9 @@
 #define COUNTIMER_H
 
 #if defined(ARDUINO) && ARDUINO >= 100
-#include <Arduino.h>
+	#include <Arduino.h>
 #else
-#include <WProgram.h>
+	#include <WProgram.h>
 #endif
 
 #define COUNTIMER_MAX_HOURS 999
@@ -29,9 +29,8 @@ public:
 
 	// Set up counter time(hours, minutes, seconds), count mode and function to execute if count is completed.
 	void setCounter(uint16_t hours, uint8_t minutes, uint8_t seconds, CountType countType, timer_callback onComplete);
-
-	// Set up counter time(hours, minutes, seconds) for existing timer.
-	void setCounter(uint16_t hours, uint8_t minutes, uint8_t seconds);
+	
+	void setCounter(uint16_t hours, uint8_t minutes, uint8_t seconds, CountType countType);
 
 	// Returns timer's current hours.
 	uint16_t getCurrentHours();
@@ -42,6 +41,8 @@ public:
 	// Returns timer's current seconds.
 	uint8_t getCurrentSeconds();
 
+	void setInterval(uint32_t interval);
+	
 	void setInterval(timer_callback callback, uint32_t interval);
 
 	// Returns current timer as formatted string HH:MM:SS
@@ -75,6 +76,9 @@ public:
 private:
 	// Counting up timer.
 	void countDown();
+	
+	// Set up counter time(hours, minutes, seconds) for existing timer.
+	void setCounter(uint16_t hours, uint8_t minutes, uint8_t seconds);
 	
 	void callback();
 	void complete();
